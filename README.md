@@ -1,0 +1,2 @@
+# yundict-cli
+Yundict CLI

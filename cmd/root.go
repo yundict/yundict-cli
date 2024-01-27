@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	authCmd "github.com/yundict/yundict-cli/pkg/cmd/auth"
 )
 
 const (
@@ -38,4 +39,6 @@ func init() {
 	exportCmd.Flags().String("project", "", "Yundict project name")
 	exportCmd.MarkFlagRequired("team")
 	exportCmd.MarkFlagRequired("project")
+
+	rootCmd.AddCommand(authCmd.NewCmdAuth())
 }

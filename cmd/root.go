@@ -1,12 +1,14 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
 	authCmd "github.com/yundict/yundict-cli/pkg/cmd/auth"
 	projectCmd "github.com/yundict/yundict-cli/pkg/cmd/project"
+	"github.com/yundict/yundict-cli/pkg/util"
 )
 
 const (
@@ -21,6 +23,15 @@ var rootCmd = &cobra.Command{
 	Use:     "yundict",
 	Short:   "Yundict CLI v" + Version,
 	Version: Version,
+	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+		// check auth token
+		if util.IsAuthCheckEnabled(cmd) && !util.CheckAuth(Token) {
+			cmd.SilenceUsage = true
+			fmt.Println(util.AuthHelp())
+			return errors.New("Auth Error")
+		}
+		return nil
+	},
 }
 
 func Execute() {
@@ -30,16 +41,19 @@ func Execute() {
 	}
 }
 
-func init() {
-	// rootCmd.AddCommand(exportCmd)
-	// rootCmd.PersistentFlags().StringVarP(&Token, "token", "t", "", "Yundict API Token")
-	// rootCmd.MarkPersistentFlagRequired("token")
+type exitCode int
 
-	// // export command
-	// exportCmd.Flags().String("team", "", "Yundict team name")
-	// exportCmd.Flags().String("project", "", "Yundict project name")
-	// exportCmd.MarkFlagRequired("team")
-	// exportCmd.MarkFlagRequired("project")
+const (
+	exitOK      exitCode = 0
+	exitError   exitCode = 1
+	exitCancel  exitCode = 2
+	exitAuth    exitCode = 4
+	exitPending exitCode = 8
+)
+
+func init() {
+	rootCmd.PersistentFlags().Bool("help", false, "Show help for command")
+	rootCmd.PersistentFlags().StringVarP(&Token, "token", "t", "", "Yundict API Token")
 
 	rootCmd.AddCommand(authCmd.NewCmdAuth())
 	rootCmd.AddCommand(projectCmd.NewCmdProject())

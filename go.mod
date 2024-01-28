@@ -13,4 +13,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 )
 
-replace github.com/yundict/yundict-cli/pkg/cmd/auth => ../pkg/cmd/auth
+replace (
+	github.com/yundict/yundict-cli/pkg/cmd/auth => ../pkg/cmd/auth
+	github.com/yundict/yundict-cli/pkg/cmd/project => ../pkg/cmd/project
+)

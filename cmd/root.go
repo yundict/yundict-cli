@@ -6,6 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 	authCmd "github.com/yundict/yundict-cli/pkg/cmd/auth"
+	projectCmd "github.com/yundict/yundict-cli/pkg/cmd/project"
 )
 
 const (
@@ -30,15 +31,16 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.AddCommand(exportCmd)
-	rootCmd.PersistentFlags().StringVarP(&Token, "token", "t", "", "Yundict API Token")
-	rootCmd.MarkPersistentFlagRequired("token")
+	// rootCmd.AddCommand(exportCmd)
+	// rootCmd.PersistentFlags().StringVarP(&Token, "token", "t", "", "Yundict API Token")
+	// rootCmd.MarkPersistentFlagRequired("token")
 
-	// export command
-	exportCmd.Flags().String("team", "", "Yundict team name")
-	exportCmd.Flags().String("project", "", "Yundict project name")
-	exportCmd.MarkFlagRequired("team")
-	exportCmd.MarkFlagRequired("project")
+	// // export command
+	// exportCmd.Flags().String("team", "", "Yundict team name")
+	// exportCmd.Flags().String("project", "", "Yundict project name")
+	// exportCmd.MarkFlagRequired("team")
+	// exportCmd.MarkFlagRequired("project")
 
 	rootCmd.AddCommand(authCmd.NewCmdAuth())
+	rootCmd.AddCommand(projectCmd.NewCmdProject())
 }

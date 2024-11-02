@@ -27,10 +27,14 @@ curl -sSL https://raw.githubusercontent.com/yundict/yundict-cli/main/install.sh 
 
 #### export
 
+Export translations from Yundict to your local machine.
+
 ```bash
 yundict export \
   --token <token> \
   --team <teamName> \
   --project <projectName> \
-  --type <type> \
+  --type key-value-json \
+  --languages en \
+  --out ./en.json
 ```

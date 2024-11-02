@@ -38,6 +38,21 @@ archives:
       - goos: windows
         format: zip
 
+brews:
+  - 
+    name: yundict
+    description: "Yundict CLI"
+    homepage: "https://github.com/yundict/yundict-cli"
+    directory: Formula
+    repository:
+      owner: yundict
+      name: yundict-cli
+      token: "{{ .Env.GITHUB_TOKEN }}"
+    test: |
+      system "#{bin}/yundict version"
+    install: |
+      bin.install "yundict"
+
 changelog:
   sort: asc
   filters:

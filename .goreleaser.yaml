@@ -46,8 +46,8 @@ brews:
     directory: Formula
     repository:
       owner: yundict
-      name: yundict-cli
-      token: "{{ .Env.GITHUB_TOKEN }}"
+      name: homebrew-cli
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
     test: |
       system "#{bin}/yundict version"
     install: |

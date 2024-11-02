@@ -37,3 +37,4 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+          TAP_GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
